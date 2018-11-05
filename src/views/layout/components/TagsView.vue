@@ -146,6 +146,7 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .tags-view-container {
+  user-select: none;
   height: 34px;
   width: 100%;
   background: #fff;
