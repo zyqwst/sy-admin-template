@@ -1,34 +1,34 @@
-import { param2Obj } from '@/utils'
-
-const userMap = {
-  admin: {
-    roles: ['admin'],
-    token: 'admin',
-    introduction: '我是超级管理员',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Super Admin'
-  },
-  editor: {
-    roles: ['editor'],
-    token: 'editor',
-    introduction: '我是编辑',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal Editor'
-  }
+import { success } from './RestEntity'
+const token = 'ABC123'
+const user = {
+  id: 1,
+  name: '管理员',
+  avator: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
 }
-
+const routers =
+[
+  {
+    path: '/table',
+    component: 'Layout',
+    children: [
+      {
+        path: 'index',
+        component: 'table/index',
+        name: 'Table',
+        meta: { title: '表格', icon: 'table', noCache: true }
+      }
+    ]
+  },
+  {
+    'path': '*',
+    'redirect': '/404',
+    'hidden': true
+  }
+]
 export default {
   loginByUsername: config => {
-    const { username } = JSON.parse(config.body)
-    return userMap[username]
+    return success(token)
   },
-  getUserInfo: config => {
-    const { token } = param2Obj(config.url)
-    if (userMap[token]) {
-      return userMap[token]
-    } else {
-      return false
-    }
-  },
-  logout: () => 'success'
+  getUserInfo: () => success({ user: user, routers: routers }),
+  logout: () => success('登出成功')
 }

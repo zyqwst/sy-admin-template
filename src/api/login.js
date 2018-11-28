@@ -5,25 +5,14 @@ export function loginByUsername(username, password) {
     username,
     password
   }
-  return request({
-    url: '/login/login',
-    method: 'post',
-    data
-  })
+  return request.post('/login/login', data)
 }
 
 export function logout() {
-  return request({
-    url: '/login/logout',
-    method: 'post'
-  })
+  return request.get('/login/logout')
 }
 
-export function getUserInfo(token) {
-  return request({
-    url: '/user/info',
-    method: 'get',
-    params: { token }
-  })
+export function getUserInfo() {
+  return request.get('/user/info')
 }
 
