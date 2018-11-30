@@ -5,7 +5,7 @@
         v-for="tag in visitedViews"
         ref="tag"
         :class="isActive(tag)?'active':''"
-        :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
+        :to="{ path: tag.path, query: tag.query,params: tag.params, fullPath: tag.fullPath }"
         :key="tag.path"
         tag="span"
         class="tags-view-item"
@@ -26,7 +26,6 @@
 
 <script>
 import ScrollPane from '@/components/ScrollPane'
-
 export default {
   components: { ScrollPane },
   data() {

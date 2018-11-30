@@ -8,21 +8,30 @@ const user = {
 const routers =
 [
   {
-    path: '/table',
+    path: '/query',
     component: 'Layout',
+    meta: { title: '动态查询', icon: 'table', noCache: false },
     children: [
       {
-        path: 'index',
-        component: 'table/index',
-        name: 'Table',
-        meta: { title: '表格', icon: 'table', noCache: true }
+        path: '1',
+        name: 'Query',
+        component: 'query/index',
+        meta: { title: '查询1', icon: 'table', noCache: false },
+        query: { type: 1 }
+      },
+      {
+        path: '2',
+        name: 'Query',
+        component: 'query/index',
+        meta: { title: '查询2', icon: 'table', noCache: false },
+        query: { type: 2 }
       }
     ]
   },
   {
-    'path': '*',
-    'redirect': '/404',
-    'hidden': true
+    path: '*',
+    redirect: '/404',
+    hidden: true
   }
 ]
 export default {

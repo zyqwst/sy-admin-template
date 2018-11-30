@@ -1,7 +1,7 @@
 
 <template>
   <!-- eslint-disable vue/require-component-is-->
-  <component v-bind="linkProps(to)">
+  <component :is="''" v-bind="linkProps">
     <slot/>
   </component>
 </template>
@@ -14,13 +14,16 @@ export default {
     to: {
       type: String,
       required: true
+    },
+    query: {
+      type: Object,
+      required: false,
+      default: undefined
     }
   },
-  methods: {
-    isExternalLink(routePath) {
-      return isExternal(routePath)
-    },
-    linkProps(url) {
+  computed: {
+    linkProps() {
+      const url = this.to
       if (this.isExternalLink(url)) {
         return {
           is: 'a',
@@ -31,8 +34,13 @@ export default {
       }
       return {
         is: 'router-link',
-        to: url
+        to: { path: url, query: this.query }
       }
+    }
+  },
+  methods: {
+    isExternalLink(routePath) {
+      return isExternal(routePath)
     }
   }
 }

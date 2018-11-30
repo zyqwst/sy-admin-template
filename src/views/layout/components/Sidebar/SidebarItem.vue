@@ -2,7 +2,7 @@
   <div v-if="!item.hidden&&item.children" class="menu-wrapper">
 
     <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
-      <app-link :to="resolvePath(onlyOneChild.path)">
+      <app-link :to="resolvePath(onlyOneChild.path)" :query="onlyOneChild.query" :key="onlyOneChild.path">
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
           <item v-if="onlyOneChild.meta" :icon="onlyOneChild.meta.icon||item.meta.icon" :title="onlyOneChild.meta.title" />
         </el-menu-item>
@@ -23,7 +23,7 @@
           :base-path="resolvePath(child.path)"
           class="nest-menu" />
 
-        <app-link v-else :to="resolvePath(child.path)" :key="child.name">
+        <app-link v-else :to="resolvePath(child.path)" :query="child.query" :key="child.path">
           <el-menu-item :index="resolvePath(child.path)">
             <item v-if="child.meta" :icon="child.meta.icon" :title="child.meta.title" />
           </el-menu-item>

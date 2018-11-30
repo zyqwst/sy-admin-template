@@ -49,6 +49,16 @@ export const constantRouterMap = [
     hidden: true
   },
   {
+    path: '/401',
+    component: () => import('@/views/errorPage/401'),
+    hidden: true
+  },
+  {
+    path: '/404',
+    component: () => import('@/views/errorPage/404'),
+    hidden: true
+  },
+  {
     path: '',
     component: Layout,
     redirect: 'dashboard',
@@ -57,7 +67,7 @@ export const constantRouterMap = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: '首页', icon: 'dashboard', noCache: true }
+        meta: { title: '首页', icon: 'dashboard', noCache: false }
       }
     ]
   }

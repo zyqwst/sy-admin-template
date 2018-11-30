@@ -1,5 +1,5 @@
 import { constantRouterMap } from '@/router'
-
+import { deepClone } from '@/utils'
 const permission = {
   state: {
     routers: constantRouterMap,
@@ -8,7 +8,8 @@ const permission = {
   mutations: {
     SET_ROUTERS: (state, routers) => {
       state.addRouters = routers
-      state.routers = constantRouterMap.concat(routers)
+      const map = deepClone(constantRouterMap)
+      state.routers = map.concat(routers)
     }
   },
   actions: {
