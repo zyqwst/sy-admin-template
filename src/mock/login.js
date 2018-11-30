@@ -14,14 +14,12 @@ const routers =
     children: [
       {
         path: '1',
-        name: 'Query',
         component: 'query/index',
         meta: { title: '查询1', icon: 'table', noCache: false },
         query: { type: 1 }
       },
       {
         path: '2',
-        name: 'Query',
         component: 'query/index',
         meta: { title: '查询2', icon: 'table', noCache: false },
         query: { type: 2 }

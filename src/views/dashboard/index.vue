@@ -17,12 +17,6 @@ export default {
     }
   },
   computed: {
-  },
-  created() {
-    console.info('dashboard 创建')
-  },
-  destroyed() {
-    console.info('dashboard销毁')
   }
 }
 </script>

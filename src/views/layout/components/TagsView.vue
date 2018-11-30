@@ -62,8 +62,8 @@ export default {
       return route.path === this.$route.path
     },
     addViewTags() {
-      const { name } = this.$route
-      if (name) {
+      const { path } = this.$route
+      if (path) {
         this.$store.dispatch('addView', this.$route)
       }
       return false
@@ -87,10 +87,11 @@ export default {
     },
     refreshSelectedTag(view) {
       this.$store.dispatch('delCachedView', view).then(() => {
-        const { fullPath } = view
+        const { path, query } = view
         this.$nextTick(() => {
           this.$router.replace({
-            path: '/redirect' + fullPath
+            path: '/redirect' + path,
+            query: query
           })
         })
       })

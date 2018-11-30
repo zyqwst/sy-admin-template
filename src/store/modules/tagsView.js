@@ -5,23 +5,25 @@ const tagsView = {
   },
   mutations: {
     ADD_VISITED_VIEW: (state, view) => {
-      if (state.visitedViews.some(v => v.path === view.path)) return
+      if (state.visitedViews.some(v => v.fullPath === view.fullPath) ||
+          !view.meta.title
+      ) return
       state.visitedViews.push(
         Object.assign({}, view, {
-          title: view.meta.title || 'no-name'
+          title: view.meta.title
         })
       )
     },
     ADD_CACHED_VIEW: (state, view) => {
-      if (state.cachedViews.includes(view.name)) return
+      if (state.cachedViews.includes(view.fullPath)) return
       if (!view.meta.noCache) {
-        state.cachedViews.push(view.name)
+        state.cachedViews.push(view.fullPath)
       }
     },
 
     DEL_VISITED_VIEW: (state, view) => {
       for (const [i, v] of state.visitedViews.entries()) {
-        if (v.path === view.path) {
+        if (v.fullPath === view.fullPath) {
           state.visitedViews.splice(i, 1)
           break
         }
@@ -29,7 +31,7 @@ const tagsView = {
     },
     DEL_CACHED_VIEW: (state, view) => {
       for (const i of state.cachedViews) {
-        if (i === view.name) {
+        if (i === view.fullPath) {
           const index = state.cachedViews.indexOf(i)
           state.cachedViews.splice(index, 1)
           break
@@ -39,7 +41,7 @@ const tagsView = {
 
     DEL_OTHERS_VISITED_VIEWS: (state, view) => {
       for (const [i, v] of state.visitedViews.entries()) {
-        if (v.path === view.path) {
+        if (v.fullPath === view.fullPath) {
           state.visitedViews = state.visitedViews.slice(i, i + 1)
           break
         }
@@ -47,7 +49,7 @@ const tagsView = {
     },
     DEL_OTHERS_CACHED_VIEWS: (state, view) => {
       for (const i of state.cachedViews) {
-        if (i === view.name) {
+        if (i === view.fullPath) {
           const index = state.cachedViews.indexOf(i)
           state.cachedViews = state.cachedViews.slice(index, index + 1)
           break
@@ -64,7 +66,7 @@ const tagsView = {
 
     UPDATE_VISITED_VIEW: (state, view) => {
       for (let v of state.visitedViews) {
-        if (v.path === view.path) {
+        if (v.fullPath === view.fullPath) {
           v = Object.assign(v, view)
           break
         }
