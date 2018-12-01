@@ -21,8 +21,9 @@
   </div>
 </template>
 <script>
+import { loadForm } from '@/api/query'
 export default {
-  name: 'Query',
+  name: 'Query1',
   data() {
     return {
       dynamicForm: {
@@ -30,47 +31,15 @@ export default {
       }
     }
   },
-  mounted() {
-    this.dynamicForm.components.push(
-      {
-        component: {
-          is: 'el-input',
-          placeholder: '请输入员工姓名'
-        },
-        label: '输入框',
-        value: ''
-      },
-      {
-        component: {
-          is: 'el-date-picker',
-          type: 'daterange',
-          'value-format': 'yyyy-MM-dd',
-          'start-placeholder': '开始日期',
-          'end-placeholder': '结束日期',
-          'range-separator': '至'
-        },
-        label: '日期',
-        value: []
-      },
-      {
-        component: {
-          is: 'el-select',
-          placeholder: '请选择公司'
-        },
-        label: '公司',
-        value: '',
-        options: [
-          { value: 1, label: '湖州双翼信息技术有限公司' },
-          { value: 2, label: '湖州华数有限公司' }
-        ]
-      },
-    )
-  },
   created() {
-    console.info('table创建' + this.$route.query.type, this.$store.state.tagsView.cachedViews)
+    console.info('创建页面')
+    // this.loadForm()
   },
-  destroyed() {
-    console.info('table销毁' + this.$route.query.type)
+  methods: {
+    async loadForm() {
+      const result = await loadForm(this.$route.query.type)
+      this.dynamicForm.components = result.object
+    }
   }
 }
 </script>

@@ -17,6 +17,9 @@ export default {
     }
   },
   computed: {
+  },
+  created() {
+    console.info('创建dash')
   }
 }
 </script>

@@ -14,15 +14,24 @@ const routers =
     children: [
       {
         path: '1',
+        name: 'query1',
         component: 'query/index',
         meta: { title: '查询1', icon: 'table', noCache: false },
         query: { type: 1 }
       },
       {
         path: '2',
+        name: 'query2',
         component: 'query/index',
         meta: { title: '查询2', icon: 'table', noCache: false },
         query: { type: 2 }
+      },
+      {
+        path: '3',
+        name: 'query3',
+        component: 'query/index',
+        meta: { title: '查询3', icon: 'table', noCache: false },
+        query: { type: 3 }
       }
     ]
   },
@@ -36,6 +45,6 @@ export default {
   loginByUsername: config => {
     return success(token)
   },
-  getUserInfo: () => success({ user: user, routers: routers }),
+  getUserInfo: () => success({ user, routers }),
   logout: () => success('登出成功')
 }

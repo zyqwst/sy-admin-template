@@ -43,10 +43,12 @@ router.beforeEach((to, from, next) => {
   if (getToken()) { // determine if there has token
     /* has token*/
     if (to.path === '/login') {
+      console.info(1)
       next({ path: '/' })
       NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
     } else {
       if (!store.getters.user.id) { // 判断当前用户是否已拉取完user_info信息
+        console.info(2, to)
         store.dispatch('GetUserInfo').then(() => { // 拉取user_info
           const r = filterAsyncRouter(store.getters.addRouters)
           router.addRoutes(r)
@@ -58,6 +60,7 @@ router.beforeEach((to, from, next) => {
           })
         })
       } else {
+        console.info('3', to)
         // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
         if (hasPermission(store.getters.roles, to.meta.roles)) {
           next()
@@ -68,11 +71,12 @@ router.beforeEach((to, from, next) => {
       }
     }
   } else {
+    console.info('4')
     /* has no token*/
     if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
       next()
     } else {
-      next(`/login?redirect=${to.path}`) // 否则全部重定向到登录页
+      next(`/login`) // 否则全部重定向到登录页
       NProgress.done() // if current page is login will not trigger afterEach hook, so manually handle it
     }
   }

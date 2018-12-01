@@ -95,6 +95,9 @@ export default {
     }
 
   },
+  created() {
+    console.info('创建Loging')
+  },
   methods: {
     showPwd() {
       if (this.passwordType === 'password') {
