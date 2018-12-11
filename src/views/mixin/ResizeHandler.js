@@ -2,7 +2,6 @@
 export default{
   data() {
     return {
-      windowHeight: window.innerHeight,
       dataTableHeight: null
     }
   },
@@ -11,15 +10,14 @@ export default{
       this.calcTableHeight()
     }
   },
-  activated() {
-    this.$nextTick(() => this.calcTableHeight())
+  beforeRouterEnter() {
+    this.calcTableHeight()
   },
   methods: {
     calcTableHeight() {
-      this.windowHeight = window.innerHeight
+      const windowHeight = window.innerHeight
       const dataTableOffset = this.$refs.dataTable.$el.getBoundingClientRect().top + 20
-      this.dataTableHeight = (this.windowHeight - dataTableOffset)
-      console.info('offset', dataTableOffset, 'height', this.dataTableHeight)
+      this.dataTableHeight = (windowHeight - dataTableOffset)
     }
   }
 }
