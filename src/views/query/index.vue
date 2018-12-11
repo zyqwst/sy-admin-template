@@ -23,12 +23,18 @@
 
         <el-table
           :data="table.data"
-          :height="tableHeight"
+          :height="dataTableHeight"
           :summary-method="getSummaries"
           stripe
           highlight-current-row
           show-summary
-        />
+        >
+          <el-table-column
+            v-for="column in table.columns"
+            :key="column.prop"
+            :prop="column.prop"
+            :label="column.label"/>
+        </el-table>
       </el-col>
     </el-row>
   </div>
@@ -36,8 +42,10 @@
 <script>
 import { loadForm, loadTable } from '@/api/query'
 import { accAdd } from '@/utils/math'
+import ResizeMixin from '../mixin/ResizeHandler'
 export default {
   name: 'Query1',
+  mixins: [ResizeMixin],
   data() {
     return {
       dynamicForm: {
@@ -46,13 +54,9 @@ export default {
       table: {}
     }
   },
-  computed: {
-    tableHeight() {
-      return window.innerHeight - 160
-    }
-  },
   created() {
     this.loadForm()
+    this.loadTable()
     console.info('创建页面')
   },
   methods: {
@@ -63,6 +67,7 @@ export default {
     async loadTable() {
       const result = await loadTable(this.$route.query.type)
       this.table = result.object
+      console.info(this.table)
     },
     getSummaries(param) {
       const sums = []

@@ -37,8 +37,28 @@ const form1 = [
 const table = {
   data: [
     {
-      date: '2018-09-09',
-      name: '诸葛建国'
+      creDate: '2018-09-09',
+      name: '诸葛建国',
+      address: '湖州市吴兴区青铜路699号'
+    },
+    {
+      creDate: '2018-09-09',
+      name: '司马鞭',
+      address: '湖州市吴兴区青铜路699号'
+    }
+  ],
+  columns: [
+    {
+      label: '创建日期',
+      prop: 'creDate'
+    },
+    {
+      label: '联系人',
+      prop: 'name'
+    },
+    {
+      label: '地址',
+      prop: 'address'
     }
   ]
 }
