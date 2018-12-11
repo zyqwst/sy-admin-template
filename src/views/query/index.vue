@@ -3,7 +3,6 @@
     <el-form ref="dynamicForm" :inline="true" :model="dynamicForm" label-width="100px">
       <el-form-item
         v-for="(domain,index) in dynamicForm.components"
-        :label="domain.label"
         :key="domain.label+index"
         :rules="{
           required: true, message: '域名不能为空', trigger: 'blur'
@@ -17,15 +16,18 @@
             :value="item.value"/>
         </component>
       </el-form-item>
+      <el-button type="primary">查询</el-button>
     </el-form>
     <el-row>
-      <el-col :span="22" :offset="1">
+      <el-col :span="24">
 
         <el-table
+          ref="dataTable"
           :data="table.data"
           :height="dataTableHeight"
           :summary-method="getSummaries"
           stripe
+          border
           highlight-current-row
           show-summary
         >
@@ -42,9 +44,8 @@
 <script>
 import { loadForm, loadTable } from '@/api/query'
 import { accAdd } from '@/utils/math'
-import ResizeMixin from '../mixin/ResizeHandler'
+import { ResizeMixin } from '../mixin'
 export default {
-  name: 'Query1',
   mixins: [ResizeMixin],
   data() {
     return {
@@ -57,7 +58,6 @@ export default {
   created() {
     this.loadForm()
     this.loadTable()
-    console.info('创建页面')
   },
   methods: {
     async loadForm() {
@@ -67,7 +67,6 @@ export default {
     async loadTable() {
       const result = await loadTable(this.$route.query.type)
       this.table = result.object
-      console.info(this.table)
     },
     getSummaries(param) {
       const sums = []
@@ -92,6 +91,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .query-container{
+  padding:1rem;
 }
 </style>
 
