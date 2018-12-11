@@ -2,22 +2,24 @@
 export default{
   data() {
     return {
-      dataTableOffset: 160,
-      windowHeight: 0,
-      dataTableHeight: 200
-    }
-  },
-  watch: {
-    windowHeight() {
-      this.dataTableHeight = (this.windowHeight - this.dataTableOffset) < 200 ? 200 : this.windowHeight - this.dataTableOffset
-      console.info('windowHeight改变', this.windowHeight, this.dataTableHeight)
+      windowHeight: window.innerHeight,
+      dataTableHeight: null
     }
   },
   mounted() {
-    this.dataTableOffset = this.$refs.dataTable ? this.$refs.dataTable.$el.getBoundingClientRect().top + 40 : 160
-    this.dataTableHeight = (this.windowHeight - this.dataTableOffset) < 200 ? 200 : this.windowHeight - this.dataTableOffset
     window.onresize = () => {
+      this.calcTableHeight()
+    }
+  },
+  activated() {
+    this.$nextTick(() => this.calcTableHeight())
+  },
+  methods: {
+    calcTableHeight() {
       this.windowHeight = window.innerHeight
+      const dataTableOffset = this.$refs.dataTable.$el.getBoundingClientRect().top + 20
+      this.dataTableHeight = (this.windowHeight - dataTableOffset)
+      console.info('offset', dataTableOffset, 'height', this.dataTableHeight)
     }
   }
 }

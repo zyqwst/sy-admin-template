@@ -4,9 +4,6 @@
       <el-form-item
         v-for="(domain,index) in dynamicForm.components"
         :key="domain.label+index"
-        :rules="{
-          required: true, message: '域名不能为空', trigger: 'blur'
-        }"
       >
         <component :is="null" v-model="domain.value" v-bind="domain.component">
           <el-option
@@ -55,18 +52,16 @@ export default {
       table: {}
     }
   },
-  created() {
-    this.loadForm()
-    this.loadTable()
+  mounted() {
+    console.info('创建' + Date.now())
+    this.load()
   },
   methods: {
-    async loadForm() {
+    async load() {
       const result = await loadForm(this.$route.query.type)
       this.dynamicForm.components = result.object
-    },
-    async loadTable() {
-      const result = await loadTable(this.$route.query.type)
-      this.table = result.object
+      const table = await loadTable(this.$route.query.type)
+      this.table = table.object
     },
     getSummaries(param) {
       const sums = []
@@ -91,7 +86,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .query-container{
-  padding:1rem;
+  padding-top:22px;
 }
 </style>
 

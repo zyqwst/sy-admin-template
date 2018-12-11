@@ -2,11 +2,11 @@
   <section class="app-main">
     <transition name="fade-transform" mode="out-in">
       <keep-alive>
-        <router-view v-if="cached" :key="key"/>
+        <router-view v-if="!noCache" :key="key"/>
       </keep-alive>
     </transition>
     <transition name="fade-transform" mode="out-in">
-      <router-view v-if="!cached" :key="key"/>
+      <router-view v-if="noCache" :key="key"/>
     </transition>
   </section>
 </template>
@@ -15,8 +15,8 @@
 export default {
   name: 'AppMain',
   computed: {
-    cached() {
-      return this.$store.state.tagsView.cachedViews.includes(this.$route.name)
+    noCache() {
+      return this.$route.meta.noCache
     },
     key() {
       return this.$route.name
@@ -28,7 +28,6 @@ export default {
 <style scoped>
 .app-main {
   /*84 = navbar + tags-view = 50 +34 */
-  min-height: calc(100vh - 84px);
   width: 100%;
   position: relative;
   overflow: hidden;

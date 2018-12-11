@@ -1,7 +1,6 @@
 @import './variables.scss';
 @import './mixin.scss';
 @import './transition.scss';
-@import './element-ui.scss';
 @import './sidebar.scss';
 @import './btn.scss';
 
@@ -24,12 +23,6 @@ html {
 
 #app{
   height: 100%;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
 }
 
 .no-padding {
