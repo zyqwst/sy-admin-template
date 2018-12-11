@@ -34,10 +34,21 @@ const form1 = [
     ]
   }
 ]
+const table = {
+  data: [
+    {
+      date: '2018-09-09',
+      name: '诸葛建国'
+    }
+  ]
+}
 const array = [form1, form1]
 export default {
   loadForm: (config) => {
     const { type } = param2Obj(config.url)
     return success(array[type - 1])
+  },
+  loadTable: (config) => {
+    return success(table)
   }
 }

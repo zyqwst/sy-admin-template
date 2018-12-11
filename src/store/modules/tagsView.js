@@ -5,7 +5,7 @@ const tagsView = {
   },
   mutations: {
     ADD_VISITED_VIEW: (state, view) => {
-      if (state.visitedViews.some(v => v.fullPath === view.fullPath) ||
+      if (state.visitedViews.some(v => v.name === view.name) ||
           !view.meta.title
       ) return
       state.visitedViews.push(
@@ -15,15 +15,15 @@ const tagsView = {
       )
     },
     ADD_CACHED_VIEW: (state, view) => {
-      if (state.cachedViews.includes(view.fullPath)) return
+      if (state.cachedViews.includes(view.name)) return
       if (!view.meta.noCache) {
-        state.cachedViews.push(view.fullPath)
+        state.cachedViews.push(view.name)
       }
     },
 
     DEL_VISITED_VIEW: (state, view) => {
       for (const [i, v] of state.visitedViews.entries()) {
-        if (v.fullPath === view.fullPath) {
+        if (v.name === view.name) {
           state.visitedViews.splice(i, 1)
           break
         }
@@ -31,7 +31,7 @@ const tagsView = {
     },
     DEL_CACHED_VIEW: (state, view) => {
       for (const i of state.cachedViews) {
-        if (i === view.fullPath) {
+        if (i === view.name) {
           const index = state.cachedViews.indexOf(i)
           state.cachedViews.splice(index, 1)
           break
@@ -41,7 +41,7 @@ const tagsView = {
 
     DEL_OTHERS_VISITED_VIEWS: (state, view) => {
       for (const [i, v] of state.visitedViews.entries()) {
-        if (v.fullPath === view.fullPath) {
+        if (v.name === view.name) {
           state.visitedViews = state.visitedViews.slice(i, i + 1)
           break
         }
@@ -49,7 +49,7 @@ const tagsView = {
     },
     DEL_OTHERS_CACHED_VIEWS: (state, view) => {
       for (const i of state.cachedViews) {
-        if (i === view.fullPath) {
+        if (i === view.name) {
           const index = state.cachedViews.indexOf(i)
           state.cachedViews = state.cachedViews.slice(index, index + 1)
           break
@@ -66,7 +66,7 @@ const tagsView = {
 
     UPDATE_VISITED_VIEW: (state, view) => {
       for (let v of state.visitedViews) {
-        if (v.fullPath === view.fullPath) {
+        if (v.name === view.name) {
           v = Object.assign(v, view)
           break
         }

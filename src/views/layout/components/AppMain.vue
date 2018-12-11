@@ -1,12 +1,12 @@
 <template>
   <section class="app-main">
-    <transition v-if="cached" name="fade-transform" mode="out-in">
+    <transition name="fade-transform" mode="out-in">
       <keep-alive>
-        <router-view :key="key"/>
+        <router-view v-if="cached" :key="key"/>
       </keep-alive>
     </transition>
-    <transition v-else name="fade-transform" mode="out-in">
-      <router-view :key="key"/>
+    <transition name="fade-transform" mode="out-in">
+      <router-view v-if="!cached" :key="key"/>
     </transition>
   </section>
 </template>
@@ -16,10 +16,10 @@ export default {
   name: 'AppMain',
   computed: {
     cached() {
-      return this.$store.state.tagsView.cachedViews.includes(this.$route.fullPath)
+      return this.$store.state.tagsView.cachedViews.includes(this.$route.name)
     },
     key() {
-      return this.$route.fullPath
+      return this.$route.name
     }
   }
 }
