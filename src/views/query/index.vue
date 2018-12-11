@@ -1,6 +1,10 @@
 <template>
   <div class="query-container">
-    <el-form ref="dynamicForm" :inline="true" :model="dynamicForm" label-width="100px">
+    <el-form
+      ref="dynamicForm"
+      :inline="true"
+      :model="dynamicForm"
+      label-width="100px">
       <el-form-item
         v-for="(domain,index) in dynamicForm.components"
         :key="domain.label+index"
@@ -13,11 +17,10 @@
             :value="item.value"/>
         </component>
       </el-form-item>
-      <el-button type="primary">查询</el-button>
+      <el-button type="primary" icon="el-icon-search">查询</el-button>
     </el-form>
     <el-row>
       <el-col :span="24">
-
         <el-table
           ref="dataTable"
           :data="table.data"
@@ -86,7 +89,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .query-container{
-  padding-top:22px;
+  padding:1rem;
 }
 </style>
 
