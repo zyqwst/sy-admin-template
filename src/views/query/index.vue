@@ -46,6 +46,7 @@ import { loadForm, loadTable } from '@/api/query'
 import { accAdd } from '@/utils/math'
 import { ResizeMixin } from '../mixin'
 export default {
+  name: 'Query',
   mixins: [ResizeMixin],
   data() {
     return {

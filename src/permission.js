@@ -47,8 +47,9 @@ router.beforeEach((to, from, next) => {
       NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
     } else {
       if (!store.getters.user.id) { // 判断当前用户是否已拉取完user_info信息
-        store.dispatch('GetUserInfo').then(() => { // 拉取user_info
-          const r = filterAsyncRouter(store.getters.addRouters)
+        store.dispatch('GetUserInfo').then((data) => { // 拉取user_info
+          store.dispatch('AccessedRouters', data)
+          const r = filterAsyncRouter(data)
           router.addRoutes(r)
           next({ ...to, replace: true })
         }).catch((err) => {

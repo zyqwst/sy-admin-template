@@ -14,7 +14,7 @@ const routers =
     children: [
       {
         path: '1',
-        name: 'query1',
+        name: 'Query',
         component: 'query/index',
         meta: { title: '查询1', icon: 'table', noCache: false },
         query: { type: 1 }

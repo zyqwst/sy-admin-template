@@ -62,8 +62,8 @@ export default {
       return route.path === this.$route.path
     },
     addViewTags() {
-      const { path } = this.$route
-      if (path) {
+      const { name } = this.$route
+      if (name) {
         this.$store.dispatch('addView', this.$route)
       }
       return false

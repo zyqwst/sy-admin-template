@@ -1,12 +1,9 @@
 <template>
   <section class="app-main">
     <transition name="fade-transform" mode="out-in">
-      <keep-alive>
-        <router-view v-if="!noCache" :key="key"/>
+      <keep-alive :include="$store.getters.cachedViews">
+        <router-view :key="key"/>
       </keep-alive>
-    </transition>
-    <transition name="fade-transform" mode="out-in">
-      <router-view v-if="noCache" :key="key"/>
     </transition>
   </section>
 </template>
@@ -15,8 +12,9 @@
 export default {
   name: 'AppMain',
   computed: {
-    noCache() {
-      return this.$route.meta.noCache
+    keepAlive() {
+      console.info(this.$route.fullPath, '===>', ...this.$store.getters.cachedViews)
+      return this.$store.getters.cachedViews.includes(this.$route.name)
     },
     key() {
       return this.$route.name

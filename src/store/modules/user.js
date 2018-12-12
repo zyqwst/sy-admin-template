@@ -30,8 +30,7 @@ const user = {
       return new Promise((resolve, reject) => {
         getUserInfo().then(result => {
           commit('SET_USER', result.object.user)
-          dispatch('AccessedRouters', result.object.routers)
-          resolve()
+          resolve(result.object.routers)
         }).catch(error => {
           reject(error)
         })
