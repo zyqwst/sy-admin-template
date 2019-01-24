@@ -17,14 +17,13 @@
             :value="item.value"/>
         </component>
       </el-form-item>
-      <el-button type="primary" icon="el-icon-search">查询</el-button>
+      <el-button type="primary" icon="el-icon-search" @click.native="query">查询</el-button>
     </el-form>
     <el-row>
       <el-col :span="24">
         <el-table
           ref="dataTable"
           :data="table.data"
-          :height="dataTableHeight"
           :summary-method="getSummaries"
           stripe
           border
@@ -46,7 +45,6 @@ import { loadForm, loadTable } from '@/api/query'
 import { accAdd } from '@/utils/math'
 import { ResizeMixin } from '../mixin'
 export default {
-  name: 'Query',
   mixins: [ResizeMixin],
   data() {
     return {
@@ -62,9 +60,9 @@ export default {
   },
   methods: {
     async load() {
-      const result = await loadForm(this.$route.query.type)
+      const result = await loadForm(this.substr(this.$route.path))
       this.dynamicForm.components = result.object
-      const table = await loadTable(this.$route.query.type)
+      const table = await loadTable(this.substr(this.$route.path))
       this.table = table.object
     },
     getSummaries(param) {
@@ -84,6 +82,13 @@ export default {
         }
       })
       return sums
+    },
+    query() {
+      const param = this.dynamicForm.components.map(item => { const x = {}; x[item.name] = item.value; return x })
+      this.$alert(param)
+    },
+    substr(str) {
+      return str.substr(15)
     }
   }
 }

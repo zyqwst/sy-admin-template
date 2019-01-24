@@ -85,14 +85,10 @@ export default {
       })
     },
     refreshSelectedTag(view) {
-      this.$store.dispatch('delCachedView', view).then(() => {
-        const { path, query } = view
-        this.$nextTick(() => {
-          this.$router.replace({
-            path: '/redirect' + path,
-            query: query
-          })
-        })
+      const { path, query } = view
+      this.$router.replace({
+        path: '/redirect' + path,
+        query: query
       })
     },
     closeSelectedTag(view) {
@@ -100,9 +96,16 @@ export default {
         if (this.isActive(view)) {
           const latestView = visitedViews.slice(-1)[0]
           if (latestView) {
-            this.$router.push(latestView)
+            const { path, query } = latestView
+            this.$router.replace({
+              path: path,
+              query: query
+            })
+            // this.$router.replace(latestView)
           } else {
-            this.$router.push('/')
+            this.$router.replace({
+              path: '/redirect/'
+            })
           }
         }
       })

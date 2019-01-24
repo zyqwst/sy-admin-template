@@ -95,6 +95,8 @@ axios.interceptors.response.use(response => {
         break
 
       default:
+        err.msg = '未知错误'
+        err.status = 500
     }
   }
   Message({

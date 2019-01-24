@@ -13,7 +13,6 @@ const tagsView = {
           title: view.meta.title
         })
       )
-      console.info('visitedViews', state.visitedViews)
     },
     ADD_CACHED_VIEW: (state, view) => {
       if (state.cachedViews.includes(view.name)) return

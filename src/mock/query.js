@@ -7,6 +7,7 @@ const form1 = [
       placeholder: '请输入员工姓名'
     },
     label: '输入框',
+    name: 'name',
     value: ''
   },
   {
@@ -19,6 +20,7 @@ const form1 = [
       'range-separator': '至'
     },
     label: '日期',
+    name: 'date',
     value: []
   },
   {
@@ -27,6 +29,7 @@ const form1 = [
       placeholder: '请选择公司'
     },
     label: '公司',
+    name: 'factory',
     value: '',
     options: [
       { value: 1, label: '湖州双翼信息技术有限公司' },
@@ -45,6 +48,7 @@ const form2 = [
       'range-separator': '至'
     },
     label: '日期',
+    name: 'date',
     value: []
   },
   {
@@ -53,6 +57,7 @@ const form2 = [
       placeholder: '请选择公司'
     },
     label: '公司',
+    name: 'factory',
     value: '',
     options: [
       { value: 1, label: '湖州双翼信息技术有限公司' },

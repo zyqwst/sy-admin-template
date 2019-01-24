@@ -1,10 +1,24 @@
 <template>
   <section class="app-main">
-    <transition name="fade-transform" mode="out-in">
-      <keep-alive :include="$store.getters.cachedViews">
+    <template v-if="keepAlive">
+      <transition name="fade-transform" mode="out-in">
+        <keep-alive>
+          <router-view :key="key"/>
+        </keep-alive>
+      </transition>
+    </template>
+    <template v-else>
+      <transition name="fade-transform" mode="out-in">
         <router-view :key="key"/>
-      </keep-alive>
-    </transition>
+      </transition>
+    </template>
+    <!-- <template v-else>
+      <transition name="fade-transform" mode="out-in">
+        <keep-alive :include="$store.getters.cachedViews">
+          <router-view :key="key"/>
+        </keep-alive>
+      </transition>
+    </template> -->
   </section>
 </template>
 
@@ -13,11 +27,11 @@ export default {
   name: 'AppMain',
   computed: {
     keepAlive() {
-      console.info(this.$route.fullPath, '===>', ...this.$store.getters.cachedViews)
-      return this.$store.getters.cachedViews.includes(this.$route.name)
+      const r = this.$route.path.slice(0, 6) === '/query' || this.$route.meta.noCache === false
+      return r
     },
     key() {
-      return this.$route.name
+      return this.$route.fullPath
     }
   }
 }
