@@ -1,30 +1,26 @@
 <template>
-  <div class="dynamic-query">
-    <el-row>
-      <el-col :span="6">
-        <el-input ref="input" v-model="x" placeholder="请输入"/>
-      </el-col>
-      <el-col :span="2">
-        <el-button @click.native="click">开关</el-button>
-      </el-col>
-    </el-row>
+  <div class="dynamic-manage">
+    <el-tabs type="card">
+      <el-tab-pane label="条件">
+        <condition/>
+      </el-tab-pane>
+      <el-tab-pane label="表格列">
+        查询报表列维护
+      </el-tab-pane>
+
+    </el-tabs>
   </div>
 </template>
 <script>
+import condition from './condition'
 export default {
-  data() {
-    return {
-      x: ''
-    }
-  },
-  mounted() {
-    console.info(this.$refs.input)
-  },
-  methods: {
-    click() {
-      this.$refs.input.placeholder = 'fdsafdsa'
-    }
-  }
+  components: { condition }
 }
 </script>
 
+<style lang="scss" scoped>
+.dynamic-manage{
+  @extend .m-3;
+
+}
+</style>
