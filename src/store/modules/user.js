@@ -21,16 +21,16 @@ const user = {
     async LoginByUsername({ commit }, userInfo) {
       const username = userInfo.username.trim()
       const data = await loginByUsername(username, userInfo.password)
-      commit('SET_TOKEN', data.object)
-      setToken(data.object)
+      commit('SET_TOKEN', data.result)
+      setToken(data.result)
     },
 
     // 获取用户信息
     GetUserInfo({ commit, dispatch }) {
       return new Promise((resolve, reject) => {
         getUserInfo().then(result => {
-          commit('SET_USER', result.object.user)
-          resolve(result.object.routers)
+          commit('SET_USER', result.result.user)
+          resolve(result.result.routers)
         }).catch(error => {
           reject(error)
         })

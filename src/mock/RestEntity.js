@@ -1,16 +1,14 @@
 export function success(obj) {
   return {
-    errorCode: '',
-    status: 1,
+    code: 200,
     msg: '',
-    object: obj
+    result: obj
   }
 }
 export function failed(msg) {
   return {
-    errorCode: '40004',
-    status: -1,
+    code: 500,
     msg: msg,
-    object: null
+    result: null
   }
 }

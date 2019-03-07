@@ -101,5 +101,22 @@ export default {
   },
   loadTable: (config) => {
     return success(table)
+  },
+  fetchColumns: (config) => {
+    return success([{
+      'alias': 'id',
+      'name': 'id',
+      'className': 'java.lang.Long'
+    },
+    {
+      'alias': 'outTradeNo',
+      'name': 'out_trade_no',
+      'className': 'java.lang.String'
+    },
+    {
+      'alias': 'credate',
+      'name': 'credate',
+      'className': 'java.sql.Timestamp'
+    }])
   }
 }

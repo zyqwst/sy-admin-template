@@ -5,7 +5,7 @@ export function loginByUsername(username, password) {
     username,
     password
   }
-  return request.post('/login/login', data)
+  return request.post('/login', data)
 }
 
 export function logout() {
@@ -13,6 +13,6 @@ export function logout() {
 }
 
 export function getUserInfo() {
-  return request.get('/user/info')
+  return request.get('/login/userinfo')
 }
 

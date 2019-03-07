@@ -29,7 +29,8 @@ export const elements = [
     name: '日期范围',
     attr: {
       name: '',
-      placeholder: '',
+      'start-placeholder': '',
+      'end-placeholder': '',
       type: 'daterange',
       'range-separator': '至'
     }

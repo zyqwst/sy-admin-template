@@ -20,7 +20,6 @@
       row-key="id"
       stripe
       max-height="300"
-      size="small"
       style="width: 100%">
       <el-table-column
         prop="name"
@@ -34,28 +33,39 @@
         label="属性"
       >
         <template slot-scope="scope">
-          <el-button size="mini" @click="editAttr(scope.row)">设置</el-button>
+          <el-button type="text" @click="editAttr(scope.row)">设置</el-button>
         </template>
       </el-table-column>
       <el-table-column
         label="操作"
       >
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="previewRow(scope.row)">预览</el-button>
-          <el-button type="text" size="small" @click="deleteRow(scope.row)">删除</el-button>
+          <el-tooltip content="预览" placement="top">
+            <el-button icon="el-icon-search" circle type="success" @click="previewRow(scope.row)"/>
+          </el-tooltip>
+          <el-tooltip content="删除" placement="top">
+            <el-button icon="el-icon-delete" circle type="danger" @click="deleteRow(scope.row)"/>
+          </el-tooltip>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="排序" width="80">
-        <template>
+      <el-table-column
+        align="center"
+        label="排序"
+        width="80">
+        <template slot-scope="scope">
           <svg-icon class="drag-handler" icon-class="drag"/>
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog :visible.sync="showAttrDialog">
-      <json-editor ref="jsonEditor" :value="selectRow.attr"/>
+    <el-dialog
+      v-if="showAttrDialog"
+      id="json-attr"
+      :visible.sync="showAttrDialog"
+    >
+      <json-editor ref="jsonEditor" v-model="selectRow.attr"/>
     </el-dialog>
     <el-dialog :visible.sync="showPreviewDialog">
-      <component :is="selectRow.is" v-bind="selectRow.attr"/>
+      <component :is="selectRow.is" v-bind="selectRow.attr" v-model="testVal"/>
     </el-dialog>
   </div>
 </template>
@@ -66,17 +76,6 @@ import { elements } from '../template'
 import JsonEditor from '@/components/JsonEditor'
 export default {
   components: { JsonEditor, Sortable },
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'info',
-        deleted: 'danger',
-        sortable: null
-      }
-      return statusMap[status]
-    }
-  },
   data() {
     return {
       comps: [],
@@ -84,7 +83,8 @@ export default {
       selectComp: null,
       selectRow: {},
       showAttrDialog: false,
-      showPreviewDialog: false
+      showPreviewDialog: false,
+      testVal: null
     }
   },
   computed: {
@@ -94,7 +94,6 @@ export default {
     jsonValue() {
       return this.comps
     }
-
   },
   watch: {
     element: function() {
@@ -153,5 +152,8 @@ export default {
   opacity: .8;
   color: #fff!important;
   background: #42b983!important;
+}
+#json-attr .el-dialog__body{
+  padding:30px 0 0 0;
 }
 </style>

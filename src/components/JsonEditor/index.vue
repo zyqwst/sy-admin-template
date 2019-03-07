@@ -13,6 +13,7 @@ require('script-loader!jsonlint')
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/addon/lint/lint'
 import 'codemirror/addon/lint/json-lint'
+import 'codemirror/addon/display/autorefresh'
 
 export default {
   name: 'JsonEditor',
@@ -23,27 +24,20 @@ export default {
       jsonEditor: false
     }
   },
-  watch: {
-    value(value) {
-      const editor_value = this.jsonEditor.getValue()
-      if (value !== editor_value) {
-        this.jsonEditor.setValue(JSON.stringify(this.value, null, 2))
-      }
-    }
-  },
   mounted() {
     this.jsonEditor = CodeMirror.fromTextArea(this.$refs.textarea, {
       lineNumbers: true,
       mode: 'application/json',
       gutters: ['CodeMirror-lint-markers'],
       theme: 'rubyblue',
-      lint: true
+      lint: true,
+      autoRefresh: true
     })
 
     this.jsonEditor.setValue(JSON.stringify(this.value, null, 2))
     this.jsonEditor.on('change', cm => {
-      this.$emit('changed', cm.getValue())
-      this.$emit('input', cm.getValue())
+      this.$emit('changed', JSON.parse(cm.getValue()))
+      this.$emit('input', JSON.parse(cm.getValue()))
     })
   },
   methods: {

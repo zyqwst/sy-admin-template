@@ -6,4 +6,6 @@ export function loadForm(type) {
 export function loadTable(type) {
   return request.get('/query/table', { 'type': type })
 }
-
+export function fetchColumns(sql) {
+  return request.get('/dynamic-query/metadata', { sql: sql })
+}
